@@ -1,0 +1,37 @@
+{
+	"editor.defaultFormatter": "dbaeumer.vscode-eslint",
+	"eslint.format.enable": true,
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.format": "explicit",
+		"source.fixAll.eslint": "explicit"
+	},
+	"explorer.compactFolders": false,
+	"editor.smoothScrolling": true,
+	"workbench.list.smoothScrolling": true,
+	"terminal.integrated.smoothScrolling": true,
+	"editor.cursorSmoothCaretAnimation": "on",
+
+	"eslint.execArgv": ["--max-old-space-size=4096"],
+
+	// Typescript
+	"typescript.preferences.importModuleSpecifier": "non-relative",
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+
+	// export-typescript
+	"export-typescript.excludes": ["**/*.{spec.ts,spec.tsx,d.ts}"],
+	"export-typescript.includes": ["**/*.{ts,tsx}"],
+	"[xml]": {
+		"editor.defaultFormatter": "redhat.vscode-xml"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[ignore]": {
+		"editor.defaultFormatter": "foxundermoon.shell-format"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	}
+}

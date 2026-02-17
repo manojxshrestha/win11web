@@ -1,0 +1,26 @@
+import { ExecutionResult } from '../CommandExecutor';
+import { TerminalSession } from '../TerminalManager';
+import { InMemoryFilesystemManager } from '../../filesystem/InMemoryFilesystemManager';
+export declare function ipconfig(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function getNetIPAddress(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function getNetAdapter(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function ping(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function testConnection(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function testNetConnection(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function tracert(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function pathping(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function nslookup(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function resolveDnsName(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function netstat(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function getNetTCPConnection(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function getNetUDPEndpoint(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function routePrint(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function getNetRoute(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function arp(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function net(args: string[], session: TerminalSession, fs: InMemoryFilesystemManager): Promise<ExecutionResult>;
+export declare function netsh(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function getNetConnectionProfile(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function nbtstat(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function hostname(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+export declare function getmac(args: string[], session: TerminalSession): Promise<ExecutionResult>;
+//# sourceMappingURL=network.d.ts.map

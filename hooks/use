@@ -1,0 +1,115 @@
+import { useEffect, useRef } from 'react';
+import { WindowState } from '@/components/Window/types';
+
+const isClient = typeof window !== 'undefined';
+
+interface FullscreenState {
+  isFullscreen: boolean;
+  isMaximized: boolean;
+}
+
+export const useFullscreen = (
+  windowId: string,
+  windowRef: React.RefObject<HTMLDivElement>,
+  state: WindowState,
+  onMaximize: (id: string) => void,
+  onRestore: (id: string) => void
+) => {
+  const previousBoundsRef = useRef<{ x: number; y: number; width: number; height: number } | null>(null);
+
+  useEffect(() => {
+    if (!isClient || !windowRef.current) return;
+
+    const element = windowRef.current;
+
+    const handleFullscreenChange = () => {
+      const isFullscreenNow = !!document.fullscreenElement;
+      
+      if (isFullscreenNow && !state.isMaximized) {
+        // Store current bounds before going fullscreen
+        previousBoundsRef.current = {
+          x: state.bounds?.[0] ?? 100,
+          y: state.bounds?.[1] ?? 100,
+          width: state.bounds?.[2] ?? 800,
+          height: state.bounds?.[3] ?? 600,
+        };
+        onMaximize(windowId);
+      } else if (!isFullscreenNow && state.isMaximized) {
+        onRestore(windowId);
+        // Restore previous bounds if available
+        setTimeout(() => {
+          if (previousBoundsRef.current && windowRef.current) {
+            const bounds = previousBoundsRef.current;
+            windowRef.current.style.transform = `translate(${bounds.x}px, ${bounds.y}px)`;
+            windowRef.current.style.width = `${bounds.width}px`;
+            windowRef.current.style.height = `${bounds.height}px`;
+          }
+        }, 50);
+      }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && document.fullscreenElement) {
+        document.exitFullscreen();
+      }
+    };
+
+    element.addEventListener('dblclick', async () => {
+      if (!document.fullscreenElement) {
+        await element.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    });
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [windowRef, state.isMaximized, state.bounds, windowId, onMaximize, onRestore]);
+
+  const toggleFullscreen = async () => {
+    if (!windowRef.current) return;
+
+    try {
+      if (!document.fullscreenElement) {
+        await windowRef.current.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    } catch (error) {
+      console.error('Fullscreen error:', error);
+    }
+  };
+
+  const enterFullscreen = async () => {
+    if (!windowRef.current || document.fullscreenElement) return;
+    try {
+      await windowRef.current.requestFullscreen();
+    } catch (error) {
+      console.error('Enter fullscreen error:', error);
+    }
+  };
+
+  const exitFullscreen = async () => {
+    if (!document.fullscreenElement) return;
+    try {
+      await document.exitFullscreen();
+    } catch (error) {
+      console.error('Exit fullscreen error:', error);
+    }
+  };
+
+  return {
+    isFullscreen: !!document.fullscreenElement,
+    toggleFullscreen,
+    enterFullscreen,
+    exitFullscreen,
+  };
+};
+
+export default useFullscreen;
+export type { FullscreenState };
