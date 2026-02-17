@@ -8,6 +8,8 @@
 
 <div align="center">
 
+![Windows 11 Web](./about/win11web.jpeg)
+
 # 🪟 Windows 11 Web
 
 ### Experience Windows 11 directly in your browser!
